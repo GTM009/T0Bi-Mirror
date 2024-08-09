@@ -177,17 +177,17 @@ class TgUploader:
     async def _prepare_file(self, file_, dirpath, delete_file):
         if self._lprefix or self._lsuffix:
             if self._lprefix:
-                cap_mono = f"{self._lprefix} {file_}"
+                cap_mono = f"<b>📄 {self._lprefix} {file_}</b>"
                 self._lprefix = re_sub(
                     "<.*?>",
                     "",
                     self._lprefix
                 )
             else:
-                cap_mono = f"{file_}"
+                cap_mono = f"<b>📄 {file_} </b>"
 
             if self._lsuffix:
-                cap_mono = f"{cap_mono} {self._lsuffix}"
+                cap_mono = f"<b>📄 {cap_mono} {self._lsuffix}</b>"
                 self._lsuffix = re_sub(
                     "<.*?>",
                     "",
@@ -206,7 +206,7 @@ class TgUploader:
                 )
                 new_path = ospath.join(
                     dirpath,
-                    f"{self._lprefix} {file_} {self._lsuffix}"
+                    f"<b>📄 {self._lprefix} {file_} {self._lsuffix}</b>"
                 )
                 self._up_path = await copy(
                     self._up_path,
@@ -215,7 +215,7 @@ class TgUploader:
             else:
                 new_path = ospath.join(
                     dirpath,
-                    f"{self._lprefix} {file_} {self._lsuffix}"
+                    f"<b>📄 {self._lprefix} {file_} {self._lsuffix}</b>"
                 )
                 await rename(
                     self._up_path,
@@ -223,7 +223,7 @@ class TgUploader:
                 )
                 self._up_path = new_path
         else:
-            cap_mono = f"{file_}"
+            cap_mono = f"<b>📄 {file_}</b>"
 
         if len(file_) > 60:
             if is_archive(file_):
