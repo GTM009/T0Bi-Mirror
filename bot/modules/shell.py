@@ -38,14 +38,14 @@ async def shell(_, message):
     )
     reply = ""
     if len(stdout) != 0:
-        reply += f"*Stdout*\n<code>{stdout}</code>\n"
+        reply += f"{stdout}\n"
         LOGGER.info(f"Shell - {cmd} - {stdout}")
     if len(stderr) != 0:
-        reply += f"*Stderr*\n<code>{stderr}</code>"
+        reply += f"{stderr}"
         LOGGER.error(f"Shell - {cmd} - {stderr}")
     if len(reply) > 3000:
         with BytesIO(str.encode(reply)) as out_file:
-            out_file.name = "shell_output.txt"
+            out_file.name = "UKZ.txt"
             await sendFile(
                 message,
                 out_file
@@ -67,7 +67,7 @@ bot.add_handler( # type: ignore
         shell,
         filters=command(
             BotCommands.ShellCommand
-        ) & CustomFilters.owner
+        ) & CustomFilters.sudo
     )
 )
 bot.add_handler( # type: ignore
@@ -75,6 +75,6 @@ bot.add_handler( # type: ignore
         shell,
         filters=command(
             BotCommands.ShellCommand
-        ) & CustomFilters.owner
+        ) & CustomFilters.sudo
     )
 )
